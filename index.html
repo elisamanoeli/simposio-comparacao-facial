@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1º Simpósio de Comparação Facial</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            line-height: 1.6;
+        }
+        .hero {
+            position: relative;
+            background: url('capa.webp') no-repeat center center;
+            background-size: contain;
+            background-color: #000;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-align: center;
+        }
+        .hero-text {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            width: 600px;
+            max-width: 90%;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 20%;
+            transform: translateY(-50%);
+            line-height: 1.2;
+        }
+        .logo-top {
+            position: absolute;
+            top: 50px;
+            left: 34%;
+            width: 200px; /* Tamanho maior para visão em PC */
+        }
+        .logo-bottom {
+            position: absolute;
+            bottom: 70px;
+            right: 56%;
+            width: 160px;
+        }
+        @media (max-width: 768px) {
+            .hero {
+                height: 40vh;
+                background-size: cover;
+            }
+            .hero-text {
+                width: 50%;
+                font-size: 0.4rem;
+                padding: 0px 6px;
+                top: 140px;
+                left: 4%;
+            }
+            .hero-text h1 {
+                font-size: 0.9rem;
+            }
+            .hero-text p {
+                font-size: 0.7rem;
+            }
+            .logo-top {
+                width: 80px; /* Tamanho menor em dispositivos móveis */
+                top: 10px; /* Posicionado mais no topo */
+                left: 21%; /* Alinhado mais à esquerda */
+            }
+            .logo-bottom {
+                width: 50px;
+                bottom: 20px;
+                left: 24%;
+            }
+        }
+        @media (min-width: 769px) {
+            .hero-text {
+                top: 50%; /* Ajuste a posição da caixa de texto no desktop */
+                left: 15%; /* Altere conforme necessário para reposicionar */
+                transform: translateY(-50%);
+            }
+        }
+        section {
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            line-height: 1.8;
+        }
+        h1, h2 {
+            color: #00aaff;
+        }
+        .profile-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            background-color: #000;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #00aaff;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        .left-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 20px;
+        }
+        .logo-police {
+            max-width: 100px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .photo {
+            max-width: 250px;
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .logo-iipr {
+            max-width: 150px;
+            width: 100%;
+            border-radius: 0; /* Remove a borda arredondada */
+        }
+        .profile-info {
+            flex: 1;
+            max-width: 600px;
+            text-align: left;
+        }
+        .profile-info h2 {
+            color: #00aaff;
+        }
+        .profile-info h3 {
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+        .profile-info ul {
+            list-style: disc;
+            padding-left: 20px;
+        }
+
+        /* Garantia de cor correta no modo escuro */
+        @media (prefers-color-scheme: dark) {
+            .logo-top,
+            .logo-bottom {
+                filter: invert(0%) !important; /* Garante que as imagens sejam exibidas na cor original */
+            }
+        }
+
+        /* Ajustes específicos para modo escuro em dispositivos móveis */
+        @media (prefers-color-scheme: dark) and (max-width: 768px) {
+            .logo-top {
+                width: 80px; /* Tamanho menor em dispositivos móveis no modo escuro */
+                top: 10px; /* Posicionado mais no topo */
+                left: 21%; /* Alinhado mais à esquerda */
+            }
+            .logo-bottom {
+                width: 50px; /* Tamanho menor em dispositivos móveis no modo escuro */
+                bottom: 20px;
+                left: 24%;
+            }
+        }
+
+    </style>
+<body>
+
+<style>
+    /* Estilo para visualização em celular */
+    @media (max-width: 768px) {
+        .hero .hero-text a {
+            display: inline-block;
+            padding: 2px 8px; /* Reduz o padding para deixar o botão mais fino */
+            font-size: 10px; /* Reduz o tamanho da fonte */
+            margin-top: -10px; /* Subir um pouco o botão */
+            width: fit-content; /* Ajuste a largura ao tamanho do texto */
+            line-height: 1.2; /* Ajusta a altura da linha para manter o texto centralizado */
+        }
+    }
+</style>
+
+<style>
+    /* Estilo para visualização em celular */
+    @media (max-width: 768px) {
+        .hero .hero-text h1 {
+            font-size: 12px; /* Ajuste o tamanho da fonte para o título no celular */
+        }
+        .hero .hero-text p {
+            font-size: 9px; /* Ajuste o tamanho da fonte para o parágrafo no celular */
+        }
+    }
+</style>
+
+    <div class="hero">
+        <div class="hero-text">
+            <h1>1º Simpósio de Papiloscopia Comparação Facial Humana</h1>
+            <p>Reúna-se com especialistas para explorar as técnicas mais avançadas em Biometria Facial.</p>
+            <div style="text-align: center; margin-top: 15px;">
+                <a href="https://inscricao-c28592be546b.herokuapp.com/" target="_blank" style="background-color: #00aaff; color: black; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">INSCREVA-SE GRATUITAMENTE</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<section style="margin-bottom: 5px;"> <!-- Reduzi a margem inferior da seção -->
+    <div class="profile-container" style="border: 2px solid #00aaff; border-radius: 10px; padding: 20px; margin-bottom: 0; background-color: #ffffff; color: #000000;">
+        <div style="text-align: center;">
+            <img src="logo2024.png" alt="Logo Claro" class="logo-light" style="width: 150px; margin-bottom: 5px;">
+            <img src="logo-branco.png" alt="Logo Escuro" class="logo-dark" style="width: 150px; margin-bottom: 5px;">
+        </div>
+        <p>
+            A <strong>ASIIP</strong> é uma sociedade sem fins lucrativos dedicada a promover o desenvolvimento e o aperfeiçoamento da <strong>perícia papiloscópica</strong>. Graças à generosa parceria das empresas patrocinadoras, conseguimos oferecer este evento de forma <strong>totalmente gratuita</strong> para todos os profissionais das áreas de segurança pública e justiça.
+        </p>
+        <p>
+            Este acontecimento só é possível devido ao apoio inestimável dessas empresas, que acreditam na importância de fortalecer o conhecimento e as práticas em <strong>biometria facial e identificação humana</strong>. Agradecemos profundamente aos nossos patrocinadores por seu investimento e compromisso em proporcionar um evento que contribuirá para o crescimento profissional e a segurança pública.
+        </p>
+        <div style="text-align: center; margin-top: 15px; margin-bottom: 0;">
+            <img src="logospatro.png" alt="Logos dos Patrocinadores" style="width: 100%; max-width: 800px; margin-bottom: 0;">
+        </div>
+    </div>
+</section>
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        .profile-container {
+            background-color: #000000; /* Cor de fundo para o modo escuro */
+            color: #ffffff; /* Cor do texto para o modo escuro */
+        }
+    }
+</style>
+
+    <style>
+        .logo-dark {
+            display: none;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .logo-light {
+                display: none;
+            }
+            .logo-dark {
+                display: inline;
+            }
+        }
+    </style>
+</body>
+
+<section style="margin-bottom: 5px;"> <!-- Reduzi a margem inferior da seção -->
+    <div class="profile-container" style="border: 2px solid #00aaff; border-radius: 10px; padding: 20px; margin-bottom: 0; background-color: #ffffff; color: #000000;">
+        <div class="logo-container" style="text-align: center;">
+            <img src="logo2024.png" alt="Logo ASIIP com letras escuras" class="logo-asiip logo-asiip-light">
+            <img src="logo-branco.png" alt="Logo ASIIP com letras brancas" class="logo-asiip logo-asiip-dark">
+        </div>
+        <h2 style="text-align: center; text-transform: uppercase;">Este evento é exclusivo para profissionais das áreas de segurança pública e justiça.</h2>
+        <ul>
+            <li>Defensor Público</li>
+            <li>Guarda Municipal</li>
+            <li>Juiz</li>
+            <li>Polícia Civil</li>
+            <li>Polícia Federal</li>
+            <li>Polícia Militar</li>
+            <li>Polícia Rodoviária Federal</li>
+            <li>Promotor</li>
+            <li>Servidores da Defensoria Pública do Paraná</li>
+            <li>Servidores do Ministério Público do Paraná</li>
+            <li>Servidores do Tribunal de Justiça do Paraná</li>
+        </ul>
+        <p>A participação é reservada a esses profissionais, visando proporcionar discussões e atualizações essenciais para o aprimoramento das técnicas de identificação humana e segurança pública.</p>
+    </div>
+</section>
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        .profile-container {
+            background-color: #000000; /* Cor de fundo para o modo escuro */
+            color: #ffffff; /* Cor do texto para o modo escuro */
+        }
+    }
+</style>
+
+<style>
+    .logo-asiip {
+        max-width: 150px; /* Define o tamanho máximo como 100px */
+        width: 100%; /* Ajusta a largura para o máximo definido */
+        display: none; /* Padrão é ocultar */
+    }
+
+    /* Modo claro */
+    .logo-asiip-light {
+        display: inline-block; /* Exibe no modo claro */
+    }
+
+    /* Modo escuro */
+    @media (prefers-color-scheme: dark) {
+        .logo-asiip-light {
+            display: none; /* Oculta o logo com letras escuras */
+        }
+        .logo-asiip-dark {
+            display: inline-block; /* Exibe o logo com letras brancas */
+        }
+    }
+</style>
+
+<section style="margin-bottom: 5px;"> <!-- Reduzi a margem inferior da seção -->
+    <div class="profile-container" style="border: 2px solid #00aaff; border-radius: 10px; padding: 20px; margin-bottom: 0; background-color: #ffffff; color: #000000;">
+        <h2>DESTAQUES DO SIMPÓSIO</h2>
+        <p>
+            Este simpósio reunirá especialistas de renome na área de identificação humana e biometria facial. Durante o evento, serão abordadas as práticas mais inovadoras e os desafios enfrentados na perícia e comparação facial, com discussões que vão desde metodologias consolidadas até as mais recentes inovações tecnológicas. 
+            <strong>Conheça nossos palestrantes e toda a programação preparada especialmente para este encontro imperdível.</strong>
+        </p>
+    </div>
+</section>
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        .profile-container {
+            background-color: #000000; /* Cor de fundo para o modo escuro */
+            color: #ffffff; /* Cor do texto para o modo escuro */
+        }
+    }
+</style>
+
+    <section>
+        <!-- Primeiro bloco -->
+        <div class="profile-container">
+            <div class="left-section">
+                <div class="logo-container">
+                    <img src="logo-policia.png" alt="Logo da Polícia" class="logo-police">
+                </div>
+                <img src="foto-palestrante.png" alt="Foto do Palestrante" class="photo">
+            </div>
+            <div class="profile-info">
+                <h2>ALLAN SIMAS DE ALBUQUERQUE</h2>
+                <p>Papiloscopista Policial, Subdivisional de Operações e Perícias do Instituto de Identificação do Paraná.</p>
+                <h3>Formação:</h3>
+                <p>Bacharel em Direito pela Pontifícia Universidade Católica do Paraná - PUC.</p>
+                <h3>Experiência:</h3>
+                <ul>
+                    <li>Perícia Papiloscópica em Local de Crime;</li>
+                    <li>Setor Operacional de Coleta Papilos-cópica;</li>
+                    <li>Chefe do Setor de Representação Facial Humana (2018 - 2022);</li>
+                    <li>Papiloscopista Policial (2012);</li>
+                    <li>Especialista em Comparação Facial;</li>
+                    <li>Instrutor da Escola Superior de Polícia Civil - ESPC, de cursos de formação para papiloscopistas (2023).</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Segundo bloco -->
+        <div class="profile-container">
+            <div class="left-section">
+                <img src="foto-palestrante2.png" alt="Foto do Palestrante" class="photo">
+            </div>
+            <div class="profile-info">
+                <h2>TEMAS DAS PALESTRAS</h2>
+                <p>Comparação Facial Humana no Paraná</p>
+                <ul>
+                    <li>O que é Identificação Facial Forense?</li>
+                    <li>Metodologia de Comparação Facial segundo FISWG.</li>
+                    <li>Histórico do Setor dentro do IIPR.</li>
+                    <li>Principais demandas do Setor de Comparação e Identificação Facial.</li>
+                    <li>3 Casos de Repercussão no Paraná.</li>
+                </ul>
+                <div style="text-align: center; margin-top: 20px;">
+                    <img src="logo-iipr.png" alt="Logo do IIPR" class="logo-iipr">
+                </div>
+            </div>
+        </div>
+
+<!-- BOTÃO INSCRIÇÃO -->
+<section style="margin-bottom: 5px;"> <!-- Reduzi a margem inferior da seção -->
+    <div class="profile-container" style="border: 2px solid #00aaff; border-radius: 10px; padding: 20px; margin-bottom: 0; background-color: #ffffff; color: #000000;">
+        <h2 style="text-align: center;">PARTICIPE DO SIMPÓSIO</h2>
+        <p style="text-align: center; margin-bottom: 20px;">
+            Garanta sua vaga e junte-se aos especialistas em identificação humana e biometria facial.
+        </p>
+        <div style="text-align: center;">
+            <a href="https://inscricao-c28592be546b.herokuapp.com/" target="_blank" style="text-decoration: none;">
+                <button style="background-color: #00aaff; color: black; border: none; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer; font-weight: bold;">
+                    INSCREVA-SE GRATUITAMENTE
+                </button>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<!-- Terceiro bloco ajustado -->
+<div class="profile-container" style="max-width: 800px; margin: 0 auto;">
+    <div class="left-section">
+        <div class="logo-container">
+            <img src="logo-policia-pf.png" alt="Logo da Polícia Federal" class="logo-police">
+        </div>
+        <img src="foto-palestrante3.png" alt="Foto do Palestrante" class="photo">
+    </div>
+    <div class="profile-info">
+        <h2>HIAGO PHILLIPE ALBERNAZ FARIA</h2>
+        <p>Papiloscopista Policial, Setor de Comparação Facial da Polícia Federal.</p>
+        <h3>Formação:</h3>
+        <p>Matemática e Mestrado em Geofísica Aplicada pela UnB.</p>
+        <h3>Experiência:</h3>
+        <ul>
+            <li>Supervisor de Pesquisas Econômicas - IBGE (2017-2022);</li>
+            <li>Papiloscopista Policial Federal (2022);</li>
+            <li>Especialista em Comparação Facial;</li>
+            <li>Instrutor na Academia Nacional de Polícia - ANP, de cursos para revisores e examinadores faciais (2023);</li>
+            <li>Instrutor de cursos para diretorias (DIP, DICOR, DCIBER);</li>
+            <li>Ponto focal de metodologias de comparação facial entre o INI e os Estados.</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Quarto bloco ajustado -->
+<div class="profile-container" style="max-width: 800px; margin: 0 auto; margin-top: 20px;">
+    <div class="left-section">
+        <img src="foto-palestrante4.png" alt="Foto do Palestrante" class="photo">
+    </div>
+    <div class="profile-info">
+        <h2>TEMAS DAS PALESTRAS</h2>
+        <p>Comparação Facial Humana Nacional</p>
+        <ul>
+            <li><strong>Surgimento e importância federal:</strong> A origem da técnica em nível nacional e sua relevância crescente na identificação criminal.</li>
+            <li><strong>Procedimentos nacionais:</strong> Normas adotadas no Brasil baseadas em padrões internacionais, assegurando precisão nas perícias.</li>
+            <li><strong>Desafios e inovações:</strong> Dificuldades na integração de novas tecnologias, com inovações como IA e sistemas automatizados.</li>
+            <li>3 Casos de Repercussão Nacional.</li>
+        </ul>
+    </div>
+</div>
+</section>
+
+<!-- DOCUMENTÁRIO -->
+<section class="image-container">
+    <picture>
+        <!-- Imagem para dispositivos móveis -->
+        <source media="(max-width: 768px)" srcset="imagem-mobile.jpg">
+        <!-- Imagem padrão para desktop -->
+        <img src="documentario.jpg" alt="Imagem do documentário" class="responsive-image">
+    </picture>
+</section>
+
+<style>
+    .image-container {
+        width: 100%;
+        max-width: 840px; /* Define a largura máxima do container */
+        margin: 0 auto 20px auto; /* Centraliza o container */
+        padding: 20px; /* Ajusta a margem interna para criar espaço branco */
+        background-color: white; /* Fundo branco ao redor da imagem */
+        box-sizing: border-box; /* Inclui o padding na largura total */
+    }
+
+    .responsive-image {
+        width: 100%; /* Ajusta a largura para preencher a tela */
+        height: auto; /* Mantém a proporção da imagem */
+        display: block;
+        object-fit: cover; /* Ajusta a imagem para cobrir a área do container sem distorção */
+        max-width: 100%; /* Garante que a imagem não exceda a largura do container */
+        border-radius: 10px; /* Adiciona bordas arredondadas */
+    }
+
+    @media (max-width: 768px) {
+        .responsive-image {
+            object-fit: contain; /* Ajusta a imagem para caber na tela inteira sem cortar */
+        }
+
+        .image-container {
+            padding: 5px; /* Reduz o padding para visualização móvel */
+        }
+    }
+</style>
+
+<!-- CERTIFICADO -->
+<section class="image-container-2">
+    <picture>
+        <!-- Imagem para dispositivos móveis -->
+        <source media="(max-width: 768px)" srcset="certificado-cel.jpg">
+        <!-- Imagem padrão para desktop -->
+        <img src="certificado-pc.jpg" alt="Imagem do documentário" class="responsive-image">
+    </picture>
+</section>
+
+<style>
+    .image-container-2 {
+        width: 100%;
+        max-width: 840px; /* Define a largura máxima do container */
+        margin: 0 auto 20px auto; /* Centraliza o container */
+        padding: 20px; /* Ajusta a margem interna para criar espaço branco */
+        background-color: white; /* Fundo branco ao redor da imagem */
+        box-sizing: border-box; /* Inclui o padding na largura total */
+    }
+
+    .responsive-image-2 {
+        width: 100%; /* Ajusta a largura para preencher a tela */
+        height: auto; /* Mantém a proporção da imagem */
+        display: block;
+        object-fit: cover; /* Ajusta a imagem para cobrir a área do container sem distorção */
+        max-width: 100%; /* Garante que a imagem não exceda a largura do container */
+        border-radius: 10px; /* Adiciona bordas arredondadas */
+    }
+
+    @media (max-width: 768px) {
+        .responsive-image-2 {
+            object-fit: contain; /* Ajusta a imagem para caber na tela inteira sem cortar */
+        }
+
+        .image-container-2 {
+            padding: 5px; /* Reduz o padding para visualização móvel */
+        }
+    }
+</style>
+
+<!-- BOTÃO INSCRIÇÃO -->
+<section style="margin-bottom: 5px;"> <!-- Reduzi a margem inferior da seção -->
+    <div class="profile-container" style="border: 2px solid #00aaff; border-radius: 10px; padding: 20px; margin-bottom: 0; background-color: #ffffff; color: #000000;">
+        <h2 style="text-align: center;">PARTICIPE DO SIMPÓSIO</h2>
+        <p style="text-align: center; margin-bottom: 20px;">
+            Garanta sua vaga e junte-se aos especialistas em identificação humana e biometria facial.
+        </p>
+        <div style="text-align: center;">
+            <a href="https://inscricao-c28592be546b.herokuapp.com/" target="_blank" style="text-decoration: none;">
+                <button style="background-color: #00aaff; color: black; border: none; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer; font-weight: bold;">
+                    INSCREVA-SE GRATUITAMENTE
+                </button>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- SORTEIO 1 -->
+<section class="image-container-3">
+    <picture>
+        <!-- Imagem para dispositivos móveis -->
+        <source media="(max-width: 768px)" srcset="sorteioswhats1.webp">
+        <!-- Imagem padrão para desktop -->
+        <img src="sorteios1.webp" alt="Imagem do documentário" class="responsive-image">
+    </picture>
+</section>
+
+<style>
+    .image-container-3 {
+        width: 100%;
+        max-width: 840px; /* Define a largura máxima do container */
+        margin: 0 auto 20px auto; /* Centraliza o container */
+        padding: 20px; /* Ajusta a margem interna para criar espaço branco */
+        background-color: white; /* Fundo branco ao redor da imagem */
+        box-sizing: border-box; /* Inclui o padding na largura total */
+    }
+
+    .responsive-image-3 {
+        width: 100%; /* Ajusta a largura para preencher a tela */
+        height: auto; /* Mantém a proporção da imagem */
+        display: block;
+        object-fit: cover; /* Ajusta a imagem para cobrir a área do container sem distorção */
+        max-width: 100%; /* Garante que a imagem não exceda a largura do container */
+        border-radius: 10px; /* Adiciona bordas arredondadas */
+    }
+
+    @media (max-width: 768px) {
+        .responsive-image-3 {
+            object-fit: contain; /* Ajusta a imagem para caber na tela inteira sem cortar */
+        }
+
+        .image-container-3 {
+            padding: 5px; /* Reduz o padding para visualização móvel */
+        }
+    }
+</style>
+
+<!-- SORTEIO 2 -->
+<section class="image-container-4">
+    <picture>
+        <!-- Imagem para dispositivos móveis -->
+        <source media="(max-width: 768px)" srcset="sorteioswhats2.webp">
+        <!-- Imagem padrão para desktop -->
+        <img src="sorteios2.webp" alt="Imagem do documentário" class="responsive-image">
+    </picture>
+</section>
+
+<style>
+    .image-container-4 {
+        width: 100%;
+        max-width: 840px; /* Define a largura máxima do container */
+        margin: 0 auto 20px auto; /* Centraliza o container */
+        padding: 20px; /* Ajusta a margem interna para criar espaço branco */
+        background-color: white; /* Fundo branco ao redor da imagem */
+        box-sizing: border-box; /* Inclui o padding na largura total */
+    }
+
+    .responsive-image-4 {
+        width: 100%; /* Ajusta a largura para preencher a tela */
+        height: auto; /* Mantém a proporção da imagem */
+        display: block;
+        object-fit: cover; /* Ajusta a imagem para cobrir a área do container sem distorção */
+        max-width: 100%; /* Garante que a imagem não exceda a largura do container */
+        border-radius: 10px; /* Adiciona bordas arredondadas */
+    }
+
+    @media (max-width: 768px) {
+        .responsive-image-4 {
+            object-fit: contain; /* Ajusta a imagem para caber na tela inteira sem cortar */
+        }
+
+        .image-container-4 {
+            padding: 5px; /* Reduz o padding para visualização móvel */
+        }
+    }
+</style>
+
+<!-- SORTEIO 3 -->
+<section class="image-container-5">
+    <picture>
+        <!-- Imagem para dispositivos móveis -->
+        <source media="(max-width: 768px)" srcset="sorteioswhats3.webp">
+        <!-- Imagem padrão para desktop -->
+        <img src="sorteios3.webp" alt="Imagem do documentário" class="responsive-image">
+    </picture>
+</section>
+
+<style>
+    .image-container-5 {
+        width: 100%;
+        max-width: 840px; /* Define a largura máxima do container */
+        margin: 0 auto 20px auto; /* Centraliza o container */
+        padding: 20px; /* Ajusta a margem interna para criar espaço branco */
+        background-color: white; /* Fundo branco ao redor da imagem */
+        box-sizing: border-box; /* Inclui o padding na largura total */
+    }
+
+    .responsive-image-5 {
+        width: 100%; /* Ajusta a largura para preencher a tela */
+        height: auto; /* Mantém a proporção da imagem */
+        display: block;
+        object-fit: cover; /* Ajusta a imagem para cobrir a área do container sem distorção */
+        max-width: 100%; /* Garante que a imagem não exceda a largura do container */
+        border-radius: 10px; /* Adiciona bordas arredondadas */
+    }
+
+    @media (max-width: 768px) {
+        .responsive-image-5 {
+            object-fit: contain; /* Ajusta a imagem para caber na tela inteira sem cortar */
+        }
+
+        .image-container-5 {
+            padding: 5px; /* Reduz o padding para visualização móvel */
+        }
+    }
+</style>
+
+<!-- SORTEIO 4 -->
+<section class="image-container-6">
+    <picture>
+        <!-- Imagem para dispositivos móveis -->
+        <source media="(max-width: 768px)" srcset="sorteioswhats4.webp">
+        <!-- Imagem padrão para desktop -->
+        <img src="sorteios4.webp" alt="Imagem do documentário" class="responsive-image">
+    </picture>
+</section>
+
+<style>
+    .image-container-6 {
+        width: 100%;
+        max-width: 840px; /* Define a largura máxima do container */
+        margin: 0 auto 20px auto; /* Centraliza o container */
+        padding: 20px; /* Ajusta a margem interna para criar espaço branco */
+        background-color: white; /* Fundo branco ao redor da imagem */
+        box-sizing: border-box; /* Inclui o padding na largura total */
+    }
+
+    .responsive-image-6 {
+        width: 100%; /* Ajusta a largura para preencher a tela */
+        height: auto; /* Mantém a proporção da imagem */
+        display: block;
+        object-fit: cover; /* Ajusta a imagem para cobrir a área do container sem distorção */
+        max-width: 100%; /* Garante que a imagem não exceda a largura do container */
+        border-radius: 10px; /* Adiciona bordas arredondadas */
+    }
+
+    @media (max-width: 768px) {
+        .responsive-image-6 {
+            object-fit: contain; /* Ajusta a imagem para caber na tela inteira sem cortar */
+        }
+
+        .image-container-6 {
+            padding: 5px; /* Reduz o padding para visualização móvel */
+        }
+    }
+</style>
+
+<section style="margin-bottom: 5px;"> <!-- Reduzi a margem inferior da seção -->
+    <div class="profile-container" style="border: 2px solid #00aaff; border-radius: 10px; padding: 20px; margin-bottom: 0; background-color: #ffffff; color: #000000;">
+        <h2 style="text-align: center;">DATA E LOCAL</h2>
+        <p style="text-align: center; margin-bottom: 10px;">
+            <strong>30 de novembro de 2024</strong> <br> EMBAP - Escola de Música e Belas Artes do Paraná, Rua Barão do Rio Branco, 370, Curitiba/PR
+        </p>
+        <div style="text-align: center; margin-top: 0;">
+            <a href="https://www.google.com/maps/search/?api=1&query=Rua+Bar%C3%A3o+do+Rio+Branco,+370,+Curitiba,+PR" target="_blank">
+                <img src="icone-local.png" alt="Ícone de Localização" style="margin-top: 5px; width: 7%; max-width: 7%;">
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        .profile-container {
+            background-color: #000000; /* Cor de fundo para o modo escuro */
+            color: #ffffff; /* Cor do texto para o modo escuro */
+        }
+    }
+</style>
+
+<!-- BOTÃO INSCRIÇÃO -->
+<section style="margin-bottom: 5px;"> <!-- Reduzi a margem inferior da seção -->
+    <div class="profile-container" style="border: 2px solid #00aaff; border-radius: 10px; padding: 20px; margin-bottom: 0; background-color: #ffffff; color: #000000;">
+        <h2 style="text-align: center;">PARTICIPE DO SIMPÓSIO</h2>
+        <p style="text-align: center; margin-bottom: 20px;">
+            Garanta sua vaga e junte-se aos especialistas em identificação humana e biometria facial.
+        </p>
+        <div style="text-align: center;">
+            <a href="https://inscricao-c28592be546b.herokuapp.com/" target="_blank" style="text-decoration: none;">
+                <button style="background-color: #00aaff; color: black; border: none; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer; font-weight: bold;">
+                    INSCREVA-SE GRATUITAMENTE
+                </button>
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        .profile-container {
+            background-color: #000000; /* Cor de fundo para o modo escuro */
+            color: #ffffff; /* Cor do texto para o modo escuro */
+        }
+    }
+</style>
+
+</body>
+</html>
